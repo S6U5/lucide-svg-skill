@@ -1,12 +1,12 @@
-# lucide-svg — Claude Code skill
+# lucide-svg — Agent Skill
 
 **English** | [日本語](./README.ja.md)
 
-A Claude Code / Claude skill for generating **original [Lucide](https://lucide.dev)-style icon SVGs** (24×24 grid, `stroke-width: 2`, rounded caps) together with Lucide-format metadata JSON (`contributors` / `tags` / `categories`).
+An [Agent Skill](https://agentskills.io) for generating **original [Lucide](https://lucide.dev)-style icon SVGs** (24×24 grid, `stroke-width: 2`, rounded caps) together with Lucide-format metadata JSON (`contributors` / `tags` / `categories`). Works with **Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot**, and any other tool that supports the Agent Skills standard.
 
 Unlike icon-search skills, this one *creates new icons* that visually match the Lucide icon set — useful for custom icon packs (e.g. Obsidian Iconize) and app-specific icons Lucide doesn't ship.
 
-The skill instructions are written in Japanese, but this does not limit usage: Claude reads them natively, so you can talk to Claude in English (or any language) and the skill works the same. The generated SVGs and JSON are language-neutral.
+The skill instructions are written in Japanese, but this does not limit usage: agents read them natively, so you can talk to your agent in English (or any language) and the skill works the same. The generated SVGs and JSON are language-neutral.
 
 **This is an unofficial tool, not affiliated with the Lucide project.**
 
@@ -29,19 +29,27 @@ The design constraints (allowed SVG elements, forbidden features with reasons, c
 
 ## Installation
 
-Clone this repository into a skills directory under the name `lucide-svg`:
+Clone this repository into your agent's skills directory under the name `lucide-svg`:
 
 ```sh
-# For all projects (user-level)
+# Claude Code — user-level
 git clone https://github.com/S6U5/lucide-svg-skill.git ~/.claude/skills/lucide-svg
 
-# For a single project
+# Claude Code — single project
 git clone https://github.com/S6U5/lucide-svg-skill.git <project>/.claude/skills/lucide-svg
+
+# Codex (and other tools reading the shared ~/.agents directory) — user-level
+git clone https://github.com/S6U5/lucide-svg-skill.git ~/.agents/skills/lucide-svg
+
+# Codex — single project
+git clone https://github.com/S6U5/lucide-svg-skill.git <project>/.agents/skills/lucide-svg
 ```
+
+For other Agent Skills-compatible tools (Cursor, Gemini CLI, etc.), clone into that tool's skills directory — check its documentation.
 
 ## Usage
 
-Just talk to Claude Code naturally and the skill triggers:
+Just talk to your agent naturally and the skill triggers:
 
 - "Create a coffee cup icon in Lucide style"
 - "A lock icon please, as an svg + json set"

@@ -1,10 +1,8 @@
-# lucide-svg — Claude Code skill
+# lucide-svg — Agent Skill
 
 [English](./README.md) | **日本語**
 
-Claude Code / Claude 用のスキル。[Lucide](https://lucide.dev) の設計言語（24×24 グリッド・`stroke-width: 2`・丸い線端）に沿ったアイコン SVG を、メタデータ JSON とセットで生成します。
-
-> **A Claude Code skill for generating original [Lucide](https://lucide.dev)-style icon SVGs** (24×24 grid, stroke-based, rounded caps) together with Lucide-format metadata JSON (`contributors` / `tags` / `categories`). Unlike icon-search skills, this one *creates new icons* that visually match the Lucide icon set — useful for custom icon packs (e.g. Obsidian Iconize) and app-specific icons Lucide doesn't ship. Instructions are written in Japanese; the generated SVGs and JSON are language-neutral.
+[Agent Skills](https://agentskills.io) 標準のスキル。[Lucide](https://lucide.dev) の設計言語（24×24 グリッド・`stroke-width: 2`・丸い線端）に沿ったアイコン SVG を、メタデータ JSON とセットで生成します。**Claude Code・Codex・Cursor・Gemini CLI・GitHub Copilot** など、Agent Skills 対応ツールならどれでも使えます。
 
 **本スキルは Lucide 公式プロジェクトとは無関係の非公式ツールです。**
 
@@ -26,19 +24,27 @@ Claude Code / Claude 用のスキル。[Lucide](https://lucide.dev) の設計言
 
 ## インストール
 
-このリポジトリを `lucide-svg` という名前でスキルディレクトリに置くだけです。
+このリポジトリを `lucide-svg` という名前で、使うエージェントのスキルディレクトリに置くだけです。
 
 ```sh
-# ユーザー全体で使う場合
+# Claude Code — ユーザー全体
 git clone https://github.com/S6U5/lucide-svg-skill.git ~/.claude/skills/lucide-svg
 
-# 特定プロジェクトだけで使う場合
+# Claude Code — 特定プロジェクトのみ
 git clone https://github.com/S6U5/lucide-svg-skill.git <project>/.claude/skills/lucide-svg
+
+# Codex（および共有 ~/.agents ディレクトリを読むツール）— ユーザー全体
+git clone https://github.com/S6U5/lucide-svg-skill.git ~/.agents/skills/lucide-svg
+
+# Codex — 特定プロジェクトのみ
+git clone https://github.com/S6U5/lucide-svg-skill.git <project>/.agents/skills/lucide-svg
 ```
+
+その他の Agent Skills 対応ツール（Cursor・Gemini CLI など）は、各ツールのスキルディレクトリに clone してください。
 
 ## 使い方
 
-Claude Code でそのまま話しかけると発火します:
+エージェントにそのまま話しかけると発火します:
 
 - 「コーヒーカップのアイコンを Lucide スタイルで作って」
 - 「鍵マークのアイコン、svg と json のセットで」

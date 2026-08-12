@@ -1,6 +1,8 @@
 ---
 name: lucide-svg
 description: >
+  Generate and edit Lucide-style 24x24 line icon SVGs with Lucide-format metadata JSON.
+  Use when the user asks for a Lucide-style icon, custom icon, or simple line icon SVG.
   Lucideスタイルの24×24線画アイコンSVGを生成・編集するスキル。
   ユーザーがLucide形式・Lucideスタイルのアイコン、またはシンプルな線画アイコンのSVGを求めたときに使用する。
   「アイコンを作って」「Lucideっぽいアイコン」「カスタムアイコン」「〇〇アイコンのSVGコード」「JSONメタデータも欲しい」といった表現でトリガーする。
