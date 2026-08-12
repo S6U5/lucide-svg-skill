@@ -1,0 +1,93 @@
+{
+  "skill_name": "lucide-svg",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "「カメラ」のSVGアイコンをLucideスタイルで作って。ファイルに保存してほしい。",
+      "expected_output": "24×24pxのLucideスタイルSVG。カメラの外枠(rect)とレンズ(circle)で構成。禁止要素なし、kebab-caseファイル名。camera.svgとcamera.jsonの両方を生成。",
+      "assertions": [
+        {
+          "id": "svg_template",
+          "description": "SVGが正しいLucideテンプレートを使っている（24×24、fill=none、stroke=currentColor、stroke-width=2、round）"
+        },
+        {
+          "id": "json_generated",
+          "description": "対応するJSONファイルが生成されている（$schema、contributors、tags、categoriesを含む）"
+        },
+        {
+          "id": "no_forbidden_elements",
+          "description": "transform、filter、use、defs、g、symbol などの禁止要素・属性を使っていない"
+        },
+        {
+          "id": "kebab_case_filename",
+          "description": "ファイル名がkebab-case（camera.svg、camera.json）"
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "ハートのアイコンのSVGコードを書いて。シンプルなLucideっぽいデザインで。",
+      "expected_output": "24×24pxのSVG。pathコマンドでハート形を描画。fill=none、stroke=currentColor。SVGコードとJSONメタデータ（tags: heart, love, like など）を両方出力。",
+      "assertions": [
+        {
+          "id": "svg_template",
+          "description": "SVGが正しいLucideテンプレートを使っている"
+        },
+        {
+          "id": "json_output",
+          "description": "JSONメタデータも出力されている（明示的に求めていなくても）"
+        },
+        {
+          "id": "heart_shape",
+          "description": "ハートの形がpathで描かれている"
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "メール（封筒）のアイコンをSVGで作って、camera.jsonみたいなメタデータJSONも一緒に作ってほしい。",
+      "expected_output": "24×24pxの封筒SVG(rect+path)と対応するmail.json。JSONにはtags（mail, email, envelope等）、categories（mailまたはcommunication）を含む。contributorsフィールドも存在する。",
+      "assertions": [
+        {
+          "id": "svg_envelope",
+          "description": "封筒を表現するrectとpathが含まれている"
+        },
+        {
+          "id": "json_schema",
+          "description": "JSONに$schema、contributors、tags、categoriesがすべて含まれている"
+        },
+        {
+          "id": "json_categories_valid",
+          "description": "categoriesの値がLucide公式カテゴリ一覧から選ばれている（mail、communication など）"
+        },
+        {
+          "id": "json_tags_relevant",
+          "description": "tagsにメール・封筒を連想するキーワードが英語で含まれている"
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "通知ベルのアイコンをLucideスタイルで作って。SVGだけでいい。",
+      "expected_output": "24×24pxのベルSVG。ユーザーが「SVGだけ」と明示したのでJSONは不要。禁止要素なし。",
+      "assertions": [
+        {
+          "id": "svg_only",
+          "description": "SVGが生成されている"
+        },
+        {
+          "id": "no_json_required",
+          "description": "ユーザーがSVGのみ要求した場合、JSONなしでも正しい出力とみなす（JSONがあっても減点しない）"
+        },
+        {
+          "id": "bell_shape",
+          "description": "ベルの形状がpath/circle等で表現されている"
+        }
+      ],
+      "files": []
+    }
+  ]
+}
