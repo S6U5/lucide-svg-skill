@@ -1,90 +1,95 @@
 # lucide-svg — Claude Code skill
 
-Claude Code / Claude 用のスキル。[Lucide](https://lucide.dev) の設計言語（24×24 グリッド・`stroke-width: 2`・丸い線端）に沿ったアイコン SVG を、メタデータ JSON とセットで生成します。
+**English** | [日本語](./README.ja.md)
 
-> **A Claude Code skill for generating original [Lucide](https://lucide.dev)-style icon SVGs** (24×24 grid, stroke-based, rounded caps) together with Lucide-format metadata JSON (`contributors` / `tags` / `categories`). Unlike icon-search skills, this one *creates new icons* that visually match the Lucide icon set — useful for custom icon packs (e.g. Obsidian Iconize) and app-specific icons Lucide doesn't ship. Instructions are written in Japanese; the generated SVGs and JSON are language-neutral.
+A Claude Code / Claude skill for generating **original [Lucide](https://lucide.dev)-style icon SVGs** (24×24 grid, `stroke-width: 2`, rounded caps) together with Lucide-format metadata JSON (`contributors` / `tags` / `categories`).
 
-**本スキルは Lucide 公式プロジェクトとは無関係の非公式ツールです。**
+Unlike icon-search skills, this one *creates new icons* that visually match the Lucide icon set — useful for custom icon packs (e.g. Obsidian Iconize) and app-specific icons Lucide doesn't ship.
 
-## できること
+The skill instructions are written in Japanese, but this does not limit usage: Claude reads them natively, so you can talk to Claude in English (or any language) and the skill works the same. The generated SVGs and JSON are language-neutral.
 
-- Lucide の視覚言語に一貫して従ったオリジナルアイコンの新規作成
-- 既存アイコンの改変（要素の追加・調整）
-- Lucide 公式リポジトリと同形式のメタデータ JSON（`contributors` / `tags` / `categories`）の同時生成
-- 生成後のセルフチェック（パディング・禁止要素・命名規則）
+**This is an unofficial tool, not affiliated with the Lucide project.**
 
-デザイン上の制約（使える SVG 要素の制限・禁止事項とその理由・角丸の使い分けなど）をスキル内に明文化してあるため、複数のアイコンを別々の会話で作っても見た目が揃います。
+## Features
 
-## 活用例
+- Creates original icons that consistently follow Lucide's visual language
+- Modifies existing icons (adding or adjusting elements)
+- Generates metadata JSON in the same format as the official Lucide repository (`contributors` / `tags` / `categories`)
+- Self-checks after generation (padding, forbidden elements, naming rules)
+- Recommends the official Lucide icon first when the requested concept already exists, so you don't reinvent (or accidentally reproduce) an official icon
 
-- **Obsidian Iconize のカスタムアイコンパック作り** — vault のフォルダ用に、標準の Lucide アイコンと並べても浮かないオリジナルアイコンを量産する（下記の注意点あり）
-- **Web アプリ・モバイルアプリの独自アイコン** — `lucide-react` などで Lucide を使っているプロジェクトで、公式セットにないドメイン固有のアイコン（自社サービスの概念・業務用語など）を同じトーンで補完する
-- **Lucide 本家に存在しないアイコンの穴埋め** — 「あと 1 個だけ欲しいのに無い」ときに、別のアイコンセットを混ぜて統一感を壊さずに済む
-- **アイコン提案のたたき台** — tags / categories 付きの JSON がセットで出るので、デザイナーへの依頼やチーム内レビューの下書きとして使える
+The design constraints (allowed SVG elements, forbidden features with reasons, corner-radius rules, etc.) are spelled out in the skill, so icons created in separate conversations still look like one set.
 
-## インストール
+## Use cases
 
-このリポジトリを `lucide-svg` という名前でスキルディレクトリに置くだけです。
+- **Building a custom icon pack for Obsidian Iconize** — mass-produce original folder icons that sit naturally next to the built-in Lucide icons (see the note below)
+- **App-specific icons** — in a project using `lucide-react` etc., fill in domain-specific concepts the official set doesn't cover, in the same visual tone
+- **Filling gaps in the official set** — when you need "just one more icon", avoid mixing in another icon set and breaking visual consistency
+- **Drafts for design requests** — the paired JSON (tags / categories) makes a handy starting point for a designer hand-off or team review
+
+## Installation
+
+Clone this repository into a skills directory under the name `lucide-svg`:
 
 ```sh
-# ユーザー全体で使う場合
+# For all projects (user-level)
 git clone https://github.com/S6U5/lucide-svg-skill.git ~/.claude/skills/lucide-svg
 
-# 特定プロジェクトだけで使う場合
+# For a single project
 git clone https://github.com/S6U5/lucide-svg-skill.git <project>/.claude/skills/lucide-svg
 ```
 
-## 使い方
+## Usage
 
-Claude Code でそのまま話しかけると発火します:
+Just talk to Claude Code naturally and the skill triggers:
 
-- 「コーヒーカップのアイコンを Lucide スタイルで作って」
-- 「鍵マークのアイコン、svg と json のセットで」
-- 「この bookmark アイコンを改造して星付きにして」
+- "Create a coffee cup icon in Lucide style"
+- "A lock icon please, as an svg + json set"
+- "Modify this bookmark icon to add a star"
 
-イラスト・ロゴ・図解など、アイコン以外の SVG 依頼では発火しないよう description を調整済みです。
+The skill's `description` is tuned so it does *not* trigger for non-icon SVG requests (illustrations, logos, diagrams, banners).
 
-出力フォーマットの実例（SVG + JSON のフルセット）は [SKILL.md の「出力例」セクション](./SKILL.md#出力例フルセット)を参照してください。
+For a full example of the output format (SVG + JSON set), see the [examples section in SKILL.md](./SKILL.md#出力例フルセット).
 
-## Obsidian Iconize で使う場合
+## Using with Obsidian Iconize
 
-生成したアイコンは [Iconize](https://github.com/FlorianWoelki/obsidian-iconize) のカスタムアイコンパックとしてそのまま使えます。1点だけ注意:
+Generated icons work as-is in an [Iconize](https://github.com/FlorianWoelki/obsidian-iconize) custom icon pack. One caveat:
 
-- **ファイル名にハイフンを入れない**こと（Iconize がハイフン区切りを PascalCase に変換するため表示が不安定になります）。スキルはこのルールを把握しており、Iconize 用と伝えればハイフンなしの名前で出力します。
+- **Do not use hyphens in file names** (Iconize converts hyphen-separated names to PascalCase, which makes icon display unstable). The skill knows this rule — tell it the icons are for Iconize and it outputs hyphen-free names.
 
-### アイコンパック配置の Tips
+### Icon pack deployment tips
 
-Iconize のカスタムアイコンパックは `.obsidian/icons/<パック名>.zip` に置きますが、運用でハマりやすいポイントがいくつかあります（パック名を `mypack`、ソースを `icons/mypack/` と仮定）:
+Iconize custom icon packs live at `.obsidian/icons/<pack>.zip`. A few pitfalls worth knowing (assuming the pack is `mypack` and sources are in `icons/mypack/`):
 
-1. **zip は毎回削除して完全再作成する。** `zip -r` は追記モードなので、削除したアイコンが古い zip に残り続けます。
+1. **Delete and fully rebuild the zip every time.** `zip -r` appends, so deleted icons linger in an old zip.
 
    ```sh
    rm -f .obsidian/icons/mypack.zip
    cd icons && COPYFILE_DISABLE=1 zip -r ../.obsidian/icons/mypack.zip mypack/ -x "*.DS_Store"
    ```
 
-   macOS では `COPYFILE_DISABLE=1` を付けないと `__MACOSX/` ディレクトリが zip に混入します。
+   On macOS, `COPYFILE_DISABLE=1` keeps the `__MACOSX/` directory out of the zip.
 
-2. **zip 更新だけでは反映されない。** Iconize は展開済みディレクトリ（`.obsidian/icons/mypack/`）のファイルを直接参照するため、zip 更新後に同期が必要です。
+2. **Updating the zip alone is not enough.** Iconize reads files directly from the extracted directory (`.obsidian/icons/mypack/`), so sync it after updating the zip:
 
    ```sh
    unzip -o .obsidian/icons/mypack.zip -d .obsidian/icons/
    ```
 
-3. **iCloud 同期の vault では重複ファイルに注意。** 同期衝突で生まれる `xxx 2.svg` のようなファイルが展開済みディレクトリに残ると、Iconize が同一アイコン名に複数ファイルを検出して表示が壊れます。見つけたら削除してください。
+3. **Watch for duplicate files in iCloud-synced vaults.** Sync conflicts create files like `xxx 2.svg`; if they remain in the extracted directory, Iconize detects multiple files for one icon name and display breaks. Delete them when found.
 
-4. **反映には Obsidian の再起動**（またはプラグインの再読み込み）が必要です。
+4. **Restart Obsidian** (or reload the plugin) for changes to take effect.
 
-## リポジトリ構成
+## Repository layout
 
 ```
-SKILL.md      ← スキル本体（デザインルール・出力フォーマット・チェックリスト）
-evals/        ← スキルの動作検証用 eval 定義
-LICENSE       ← スキル本体のライセンス（MIT）
-LICENSE-lucide ← SKILL.md 内で引用している Lucide 公式 path データのライセンス（ISC）
+SKILL.md       ← the skill itself (design rules, output format, checklist)
+evals/         ← eval definitions for testing the skill
+LICENSE        ← license for the skill itself (MIT)
+LICENSE-lucide ← license for the official Lucide path data quoted in SKILL.md (ISC)
 ```
 
-## ライセンス
+## License
 
-- スキル本体: [MIT License](./LICENSE)
-- SKILL.md 内の出力例 2 点（search / house）の path データは [Lucide](https://lucide.dev) 公式アイコンからの引用です（[ISC License](./LICENSE-lucide) — Copyright (c) Lucide Contributors）
+- The skill itself: [MIT License](./LICENSE)
+- The path data of the two output examples in SKILL.md (search / house) is quoted from official [Lucide](https://lucide.dev) icons ([ISC License](./LICENSE-lucide) — Copyright (c) Lucide Contributors)
