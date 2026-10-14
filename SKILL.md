@@ -13,22 +13,21 @@ description: >
 
 # Lucide SVG アイコン生成スキル
 
-Lucideアイコンの設計ルールに従ってSVGアイコンを生成する。
-シンプルで一貫性のある線画アイコンを作ることが目的で、すべてのアイコンは同じ視覚的言語で描かれる。
+Lucide の設計ルールに従って、公式アイコンと並べても違和感のない線画アイコンを作る。
 
-**アイコンを生成するときは、SVGファイルとJSONメタデータファイルを必ずセットで出力する。**
-ユーザーが「SVGだけでいい」と明示した場合のみJSONを省略する。
+**アイコンを生成するときは、SVG と JSON メタデータを必ずセットで出力する。**
+ユーザーが「SVGだけでいい」と明示した場合のみ JSON を省略する。
 
 ---
 
 ## 生成前の確認: 公式アイコンとの重複チェック
 
-アイコンを作る前に、**依頼された概念が公式 Lucide に既に存在しないか**を考える。
+作る前に、**依頼された概念が公式 Lucide に既に存在しないか**を考える。
 
-- 一般的な概念（search・home・bell・mail など）は公式に存在する可能性が高い。存在する（または存在しそうな）場合は、**公式アイコンの使用を第一候補として案内**する（https://lucide.dev/icons/ で検索できる）
+- 一般的な概念（search・house・bell・mail など）は公式にある可能性が高い。ある（またはありそうな）場合は、**公式アイコンの使用を第一候補として案内**する（https://lucide.dev/icons/ で検索できる）
   - Obsidian Iconize なら公式アイコンは `lucide-<名前>` のキーでそのまま使えるため、生成せずに済む
 - 案内した上でユーザーがオリジナルを希望する場合のみ生成に進む。その際は**公式と構図・モチーフを意図的にずらす**（要素の追加、視点の変更、別のメタファーなど）。公式の path データをそのまま、またはほぼそのまま出力してはいけない
-- ユーザーが**公式アイコンの改変**を明示的に求めた場合は改変してよいが、成果物が Lucide 公式（ISC License）由来であることを伝え、配布時にはライセンス表示が必要になる旨を案内する
+- ユーザーが**公式アイコンの改変**を明示的に求めた場合は改変してよいが、成果物が Lucide 公式（ISC License。Feather 由来のアイコンは MIT License も）に由来することを伝え、配布時にはライセンス表示が必要になる旨を案内する
 
 公式にない概念（ドメイン固有の概念、複合的な意味など）なら、このチェックは不要でそのまま生成に進んでよい。
 
@@ -36,7 +35,7 @@ Lucideアイコンの設計ルールに従ってSVGアイコンを生成する�
 
 ## 基本テンプレート
 
-すべてのアイコンはこの属性セットを**そのまま**使う。変えてはいけない。
+ルート要素は、属性・順序・改行まで**この形のまま**使う（Lucide 公式の SVG と同じ書式）。
 
 ```xml
 <svg
@@ -54,10 +53,10 @@ Lucideアイコンの設計ルールに従ってSVGアイコンを生成する�
 </svg>
 ```
 
-なぜこの形式かというと:
-- `fill="none"` + `stroke="currentColor"` により、CSSの `color` プロパティひとつで色が変えられる
-- `stroke-linecap="round"` + `stroke-linejoin="round"` により、すべての線端・折れ角が柔らかくなり統一感が生まれる
-- 24×24のグリッドは他のLucideアイコンとサイズが揃う
+この形式の理由:
+- `fill="none"` + `stroke="currentColor"` により、CSS の `color` ひとつで色が変えられる
+- `stroke-linecap="round"` + `stroke-linejoin="round"` により、線端と折れ角が柔らかくそろう
+- 24×24 のグリッドで、他の Lucide アイコンとサイズがそろう
 
 ---
 
@@ -86,10 +85,10 @@ Lucideアイコンの設計ルールに従ってSVGアイコンを生成する�
 ## コーディングルール
 
 - キャンバスは **24×24px** 固定
-- パスの数値は**小数点3桁まで**（それ以上は切り捨て）
+- パスの数値は**小数点以下3桁まで**に丸める
 - インデント: **スペース2つ**
-- 要素の属性は1行に書く（改行しない）
-- ファイル名は **kebab-case の英小文字**（例: `coffee-cup.svg`）が既定
+- 子要素の属性は1行に書く（改行しない）。自己終了タグは ` />` で閉じる
+- ファイル名は **kebab-case の英小文字**（例: `coffee-cup.svg`）が既定。SVG と JSON は同じ名前にする
   - **Obsidian Iconize で使う場合はハイフンを含めない**（例: `coffeecup.svg`）。Iconize がハイフン区切りをPascalCaseに変換するため、含めると表示が不安定になる
   - 既存アイコンパックとの名前衝突を避けたい場合は、短い接尾辞を決めて全ファイルに統一して付けるとよい（ユーザーの指定があればそれに従う）
 - **1ファイル = 1アイコン**
@@ -106,52 +105,26 @@ Lucideアイコンの設計ルールに従ってSVGアイコンを生成する�
 
 ---
 
-## pathコマンド早見表
+## 出力フォーマット
 
-| コマンド | 意味 |
-|---------|------|
-| `M x y` | 移動（絶対座標） |
-| `m dx dy` | 移動（相対座標） |
-| `L x y` | 直線（絶対） |
-| `l dx dy` | 直線（相対） |
-| `H x` | 水平線 |
-| `V y` | 垂直線 |
-| `C x1 y1 x2 y2 x y` | 三次ベジェ曲線 |
-| `Q x1 y1 x y` | 二次ベジェ曲線 |
-| `A rx ry rotation large-arc sweep x y` | 円弧 |
-| `Z` | パスを閉じる |
-
----
-
-## 標準出力フォーマット
-
-アイコンを生成するときは **SVGファイルとJSONファイルを必ずセットで**出力する。
-ファイルは `icons/` ディレクトリに並べて置く想定で命名する。
+SVG と JSON を同じ名前で `icons/` に並べて置く想定で出力する。
 
 ```
 icons/
-├── my-icon.svg   ← SVGファイル本体
-└── my-icon.json  ← メタデータ（contributors・tags・categories）
+├── my-icon.svg   ← SVG本体
+└── my-icon.json  ← メタデータ
 ```
 
-### SVGファイル出力例
+### JSON メタデータ
 
-`my-icon.svg`:
-```xml
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <!-- SVG要素 -->
-</svg>
-```
+Lucide 公式の `icon.schema.json` に通る形で書く。次の5つはすべて必須。
 
-### JSONファイルの書き方
-
-`my-icon.json`:
 ```json
 {
   "$schema": "../icon.schema.json",
-  "contributors": [
-    "github-username"
+  "contributors": [],
+  "use-cases": [
+    "Representing example items in an interface"
   ],
   "tags": [
     "keyword1",
@@ -163,50 +136,47 @@ icons/
 }
 ```
 
-**各フィールドの意味:**
-- `$schema` — スキーマ参照パス。常に `"../icon.schema.json"` 固定
-- `contributors` — アイコン作者のGitHubユーザー名リスト。ユーザーが未指定なら空配列 `[]`
-- `tags` — 検索キーワード。アイコンの概念・用途・別名を英語で列挙する（3〜8個が目安）
-- `categories` — アイコンが属するカテゴリ。下の一覧から選ぶ
+- `$schema` — 常に `"../icon.schema.json"`
+- `contributors` — 作者の GitHub ユーザー名。ユーザーが未指定なら空配列 `[]`。公式アイコンを改変した場合は、元アイコンの contributors も含める
+- `use-cases` — UI のどんな場面で使うかを英語の短い句で 1〜3 個。`Representing` / `Indicating` / `Marking` / `Showing` / `Toggling` などの -ing 動詞で始め、句点や Markdown は付けない。アイコン名や見た目の説明ではなく、UI での役割を書く（例: `Indicating a device is offline or unreachable`）
+- `tags` — 検索キーワード。概念・同義語・関連語を英語の小文字で 3〜10 個が目安。**アイコン名そのものと `icon` のような汎用語は入れない**
+- `categories` — 下の一覧から選ぶ。一覧にない値は作らない
 
-**categoriesに使える値（`icon.schema.json` より）:**
+**categories に使える値（`icon.schema.json` の enum）:**
 
 | カテゴリ | 内容 |
 |---------|------|
-| `accessibility` | アクセシビリティ関連 |
+| `accessibility` | アクセシビリティ |
 | `account` | アカウント・プロフィール |
 | `animals` | 動物 |
 | `arrows` | 矢印・方向 |
-| `brands` | ブランド・ロゴ |
 | `buildings` | 建物・施設 |
 | `charts` | グラフ・データ可視化 |
 | `communication` | コミュニケーション・メッセージ |
 | `connectivity` | ネットワーク・接続 |
-| `currency` | 通貨・お金 |
 | `cursors` | カーソル・ポインタ |
 | `design` | デザイン・UI |
 | `development` | 開発・コーディング |
 | `devices` | デバイス・ハードウェア |
 | `emoji` | 絵文字・感情 |
 | `files` | ファイル・ドキュメント |
-| `finance` | 金融・ビジネス |
+| `finance` | 金融・通貨・ビジネス |
 | `food-beverage` | 食べ物・飲み物 |
 | `gaming` | ゲーム |
 | `home` | 家・インテリア |
 | `layout` | レイアウト・UI構造 |
 | `mail` | メール |
-| `maps` | 地図・場所 |
 | `math` | 数学・計算 |
-| `media` | メディア・再生 |
 | `medical` | 医療・健康 |
+| `multimedia` | 音楽・動画・再生 |
 | `nature` | 自然・植物 |
-| `navigation` | ナビゲーション |
+| `navigation` | ナビゲーション・地図 |
 | `notifications` | 通知・アラート |
 | `people` | 人・ユーザー |
 | `photography` | 写真・カメラ |
 | `science` | 科学 |
+| `seasons` | 季節 |
 | `security` | セキュリティ・プライバシー |
-| `settings` | 設定 |
 | `shapes` | 図形・幾何学 |
 | `shopping` | ショッピング |
 | `social` | ソーシャル・SNS |
@@ -227,8 +197,17 @@ icons/
 
 `search.svg`:
 ```xml
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
   <path d="m21 21-4.34-4.34" />
   <circle cx="11" cy="11" r="8" />
 </svg>
@@ -239,16 +218,24 @@ icons/
 {
   "$schema": "../icon.schema.json",
   "contributors": [],
+  "use-cases": [
+    "Representing search fields and actions"
+  ],
   "tags": [
-    "search",
     "find",
+    "scan",
     "magnifier",
-    "lookup",
-    "query"
+    "magnifying glass",
+    "lens",
+    "locate",
+    "explore",
+    "discover",
+    "enlarge",
+    "zoom"
   ],
   "categories": [
-    "navigation",
-    "development"
+    "text",
+    "social"
   ]
 }
 ```
@@ -257,8 +244,17 @@ icons/
 
 `house.svg`:
 ```xml
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
   <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
   <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
 </svg>
@@ -269,22 +265,25 @@ icons/
 {
   "$schema": "../icon.schema.json",
   "contributors": [],
+  "use-cases": [
+    "Navigating to the home page or start screen"
+  ],
   "tags": [
     "home",
-    "house",
+    "living",
     "building",
     "residence",
-    "dwelling"
+    "architecture"
   ],
   "categories": [
-    "home",
     "buildings",
+    "home",
     "navigation"
   ]
 }
 ```
 
-※ 上記2つのアイコンのpathデータは [Lucide](https://lucide.dev) 公式アイコン（ISC License）を出力例として引用したもの。search は Feather 由来のため MIT License（Cole Bemis）の対象でもある。全文は `LICENSE-lucide`。
+※ 上記2つのアイコンのpathデータは [Lucide](https://lucide.dev) 公式アイコン（ISC License）を出力例として引用したもの。search は Feather 由来のため MIT License（Cole Bemis）の対象でもある。全文は `LICENSE-lucide`。tags・categories は公式に合わせ、contributors は「ユーザー未指定なら空配列」の例として空にしている。use-cases は公式が空のため、書き方の例としてこのスキルで書いたもの。
 
 ---
 
@@ -292,14 +291,13 @@ icons/
 
 - [ ] 公式 Lucide に同じ概念のアイコンがないか確認したか（ある場合は公式を案内したか）
 - [ ] 公式アイコンの path をそのまま（またはほぼそのまま）出力していないか
-- [ ] キャンバスは 24×24px か
+- [ ] ルート要素は基本テンプレートのままか（24×24、`stroke-width="2"`、`round`）
 - [ ] 上下左右に 1px 以上のパディングがあるか
-- [ ] `stroke-width` は 2px か
-- [ ] `stroke-linecap` / `stroke-linejoin` は `round` か
 - [ ] 矩形の `rx` は適切か（8px以上→2、8px未満→1）
 - [ ] 別の要素との間隔は 2px 以上あるか
 - [ ] 禁止要素・属性を使っていないか
-- [ ] ファイル名は命名規則に沿っているか（既定: kebab-case 英小文字。Iconize用ならハイフンなし）
-- [ ] JSONファイルをSVGとセットで出力したか
-- [ ] `tags` に検索で使いやすい英語キーワードを入れたか
-- [ ] `categories` は上の一覧から正しい値を選んでいるか
+- [ ] ファイル名は命名規則に沿っているか（既定: kebab-case 英小文字。Iconize用ならハイフンなし）。SVG と JSON は同じ名前か
+- [ ] JSON を SVG とセットで出力したか
+- [ ] JSON に `$schema`・`contributors`・`use-cases`・`tags`・`categories` がすべてあるか
+- [ ] `tags` は英語の小文字で、アイコン名そのものを含んでいないか
+- [ ] `categories` は上の一覧から選んでいるか

@@ -12,7 +12,7 @@
         },
         {
           "id": "json_generated",
-          "description": "対応するJSONファイルが生成されている（$schema、contributors、tags、categoriesを含む）"
+          "description": "対応するJSONファイルが生成されている（$schema、contributors、use-cases、tags、categoriesをすべて含む）"
         },
         {
           "id": "no_forbidden_elements",
@@ -28,7 +28,7 @@
     {
       "id": 2,
       "prompt": "ハートのアイコンのSVGコードを書いて。シンプルなLucideっぽいデザインで。",
-      "expected_output": "24×24pxのSVG。pathコマンドでハート形を描画。fill=none、stroke=currentColor。SVGコードとJSONメタデータ（tags: heart, love, like など）を両方出力。",
+      "expected_output": "24×24pxのSVG。pathコマンドでハート形を描画。fill=none、stroke=currentColor。SVGコードとJSONメタデータ（tags: love, like, favorite など。アイコン名の heart は入れない）を両方出力。",
       "assertions": [
         {
           "id": "svg_template",
@@ -48,7 +48,7 @@
     {
       "id": 3,
       "prompt": "メール（封筒）のアイコンをSVGで作って、camera.jsonみたいなメタデータJSONも一緒に作ってほしい。",
-      "expected_output": "24×24pxの封筒SVG(rect+path)と対応するmail.json。JSONにはtags（mail, email, envelope等）、categories（mailまたはcommunication）を含む。contributorsフィールドも存在する。",
+      "expected_output": "24×24pxの封筒SVG(rect+path)と対応するmail.json。JSONにはuse-cases、tags（email, envelope, letter等。アイコン名の mail は入れない）、categories（mailまたはcommunication）を含む。contributorsフィールドも存在する。",
       "assertions": [
         {
           "id": "svg_envelope",
@@ -56,15 +56,19 @@
         },
         {
           "id": "json_schema",
-          "description": "JSONに$schema、contributors、tags、categoriesがすべて含まれている"
+          "description": "JSONに$schema、contributors、use-cases、tags、categoriesがすべて含まれている"
         },
         {
           "id": "json_categories_valid",
           "description": "categoriesの値がLucide公式カテゴリ一覧から選ばれている（mail、communication など）"
         },
         {
+          "id": "json_use_cases",
+          "description": "use-casesがUIでの役割を表す英語の短い句で、-ing動詞（Representing、Indicating など）で始まっている"
+        },
+        {
           "id": "json_tags_relevant",
-          "description": "tagsにメール・封筒を連想するキーワードが英語で含まれている"
+          "description": "tagsにメール・封筒を連想するキーワードが英語の小文字で含まれ、アイコン名そのもの（ファイル名と同じ語）は含まれていない"
         }
       ],
       "files": []
