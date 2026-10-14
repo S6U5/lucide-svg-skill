@@ -2,7 +2,7 @@
 
 **English** | [日本語](./README.ja.md)
 
-An [Agent Skill](https://agentskills.io) for generating **original [Lucide](https://lucide.dev)-style icon SVGs** (24×24 grid, `stroke-width: 2`, rounded caps) together with Lucide-format metadata JSON (`contributors` / `tags` / `categories`). Works with **Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot**, and any other tool that supports the Agent Skills standard.
+An [Agent Skill](https://agentskills.io) for generating **original [Lucide](https://lucide.dev)-style icon SVGs** (24×24 grid, `stroke-width: 2`, rounded caps) together with Lucide-format metadata JSON (`contributors` / `use-cases` / `tags` / `categories`). Works with **Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot**, and any other tool that supports the Agent Skills standard.
 
 Unlike icon-search skills, this one *creates new icons* that visually match the Lucide icon set — useful for custom icon packs (e.g. Obsidian Iconize) and app-specific icons Lucide doesn't ship.
 
@@ -14,7 +14,7 @@ The skill instructions are written in Japanese, but this does not limit usage: a
 
 - Creates original icons that consistently follow Lucide's visual language
 - Modifies existing icons (adding or adjusting elements)
-- Generates metadata JSON in the same format as the official Lucide repository (`contributors` / `tags` / `categories`)
+- Generates metadata JSON in the same format as the official Lucide repository (`contributors` / `use-cases` / `tags` / `categories`)
 - Self-checks after generation (padding, forbidden elements, naming rules)
 - Recommends the official Lucide icon first when the requested concept already exists, so you don't reinvent (or accidentally reproduce) an official icon
 
@@ -25,7 +25,7 @@ The design constraints (allowed SVG elements, forbidden features with reasons, c
 - **Building a custom icon pack for Obsidian Iconize** — mass-produce original folder icons that sit naturally next to the built-in Lucide icons (see the note below)
 - **App-specific icons** — in a project using `lucide-react` etc., fill in domain-specific concepts the official set doesn't cover, in the same visual tone
 - **Filling gaps in the official set** — when you need "just one more icon", avoid mixing in another icon set and breaking visual consistency
-- **Drafts for design requests** — the paired JSON (tags / categories) makes a handy starting point for a designer hand-off or team review
+- **Drafts for design requests** — the paired JSON (use cases / tags / categories) makes a handy starting point for a designer hand-off or team review
 
 ## Installation
 
