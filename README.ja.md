@@ -95,4 +95,4 @@ LICENSE-lucide ← SKILL.md 内で引用している Lucide 公式 path デー�
 ## ライセンス
 
 - スキル本体: [MIT License](./LICENSE)
-- SKILL.md 内の出力例 2 点（search / house）の path データは [Lucide](https://lucide.dev) 公式アイコンからの引用です（[ISC License](./LICENSE-lucide) — Copyright (c) Lucide Contributors）
+- SKILL.md 内の出力例 2 点（search / house）の path データは [Lucide](https://lucide.dev) 公式アイコンからの引用です（[ISC License](./LICENSE-lucide) — Copyright (c) Lucide Icons and Contributors）。`search` は Lucide が Feather から引き継いだアイコンのため、同じファイルに収めた MIT License（Copyright (c) Cole Bemis）の対象でもあります。

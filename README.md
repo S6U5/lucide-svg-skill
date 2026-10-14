@@ -100,4 +100,4 @@ LICENSE-lucide ← license for the official Lucide path data quoted in SKILL.md 
 ## License
 
 - The skill itself: [MIT License](./LICENSE)
-- The path data of the two output examples in SKILL.md (search / house) is quoted from official [Lucide](https://lucide.dev) icons ([ISC License](./LICENSE-lucide) — Copyright (c) Lucide Contributors)
+- The path data of the two output examples in SKILL.md (search / house) is quoted from official [Lucide](https://lucide.dev) icons ([ISC License](./LICENSE-lucide) — Copyright (c) Lucide Icons and Contributors). `search` is one of the icons Lucide derives from Feather, so it is also covered by the MIT License (Copyright (c) Cole Bemis) included in the same file.

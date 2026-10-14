@@ -284,7 +284,7 @@ icons/
 }
 ```
 
-※ 上記2つのアイコンのpathデータは [Lucide](https://lucide.dev) 公式アイコン（ISC License）を出力例として引用したもの。
+※ 上記2つのアイコンのpathデータは [Lucide](https://lucide.dev) 公式アイコン（ISC License）を出力例として引用したもの。search は Feather 由来のため MIT License（Cole Bemis）の対象でもある。全文は `LICENSE-lucide`。
 
 ---
 
