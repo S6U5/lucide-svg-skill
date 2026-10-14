@@ -1,6 +1,6 @@
 # AGENTS.md
 
-このリポジトリは Claude Code 用スキル「lucide-svg」の配布リポジトリ。
+このリポジトリは Agent Skills 形式のスキル「lucide-svg」の配布リポジトリ。Claude Code・Codex など、Agent Skills に対応するツールで使われる。
 
 注意: `SKILL.md` は**スキル利用時**にエージェントが読む指示書であり、このファイルは**リポジトリを編集する**エージェントへの指示書。役割が異なるので、SKILL.md 内の指示（アイコンの作り方）をリポジトリ編集のルールと混同しないこと。
 
@@ -11,7 +11,7 @@
 | `SKILL.md` | スキル本体。frontmatter の `description` が発火条件 |
 | `evals/evals.json` | スキルの動作検証用 eval 定義 |
 | `LICENSE` | スキル本体のライセンス（MIT） |
-| `LICENSE-lucide` | SKILL.md 内で引用している Lucide 公式 path データのライセンス（ISC） |
+| `LICENSE-lucide` | SKILL.md 内で引用している Lucide 公式 path データのライセンス（ISC。Feather 由来分の MIT を含む上流の全文） |
 
 ## 編集時の制約
 
@@ -29,8 +29,10 @@
 | `https://raw.githubusercontent.com/lucide-icons/lucide/main/LICENSE` | `LICENSE-lucide`（全文一致させる） |
 | `https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/search.svg` および `icons/search.json` | SKILL.md「出力例」の search の path・tags・categories |
 | `https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/house.svg` および `icons/house.json` | SKILL.md「出力例」の house の path・tags・categories |
-| `https://raw.githubusercontent.com/lucide-icons/lucide/main/icon.schema.json` | SKILL.md「categoriesに使える値」の一覧表（`properties.categories.items.enum` と一致させる） |
-| `https://raw.githubusercontent.com/lucide-icons/lucide/main/docs/contribute/icon-design-guide.md` | SKILL.md の基本テンプレート属性・デザインルール（24×24、`stroke-width: 2`、パディング等） |
+| `https://raw.githubusercontent.com/lucide-icons/lucide/main/icon.schema.json` | SKILL.md「categories に使える値」の一覧表（`properties.categories.items.enum` と一致させる）と JSON の必須フィールド（`required`） |
+| `https://raw.githubusercontent.com/lucide-icons/lucide/main/docs/contribute/icons/specification.md` | SKILL.md のデザインルール（24×24、`stroke-width: 2`、パディング、間隔、角丸等） |
+| `https://raw.githubusercontent.com/lucide-icons/lucide/main/docs/contribute/icons/code-conventions.md` | SKILL.md の基本テンプレート・使える要素と属性・禁止事項 |
+| `https://raw.githubusercontent.com/lucide-icons/lucide/main/docs/contribute/icons/metadata-conventions/index.md` | SKILL.md「JSON メタデータ」の各フィールドの書き方（use-cases・tags の規則） |
 
 手順:
 
@@ -39,3 +41,5 @@
    - **カテゴリの追加・削除、tags の変化、ライセンス文言の軽微な改訂** → そのまま追従して更新してよい
    - **基本テンプレート属性やデザインルールの変更**（stroke-width、viewBox、禁止要素など） → スキルの出力全体に影響するため、必ずユーザーの承認を得てから SKILL.md 本文・チェックリスト・evals にまとめて反映する
 3. 更新内容（何にどう追従したか）をコミットメッセージに明記する
+
+上流のファイルが 404 になったら、`gh api 'repos/lucide-icons/lucide/git/trees/main?recursive=1' --jq '.tree[].path'` で移動先を探し、この表を直す。
